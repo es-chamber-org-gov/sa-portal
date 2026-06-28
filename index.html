@@ -76,30 +76,6 @@
         <div id="loadingText"><i class="fa-solid fa-spinner fa-spin"></i> Please wait loading...</div>
     </div>
 
-    <header class="main-header">
-        <div class="logo-container">
-            <img src="asharqia chamber.png" alt="Logo">
-        </div>
-    </header>
-
-    <div class="toolbar-container">
-        <div class="toolbar-row">
-            <button class="btn-tool"><i class="fa-solid fa-list"></i></button>
-            <button class="btn-tool" id="downloadPdf" title="Download as PDF"><i class="fa-solid fa-download"></i> </button>
-        </div>
-
-        <div class="toolbar-row">
-            <button class="btn-tool" id="zoomOut"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
-            <button class="btn-tool" id="zoomIn"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
-            <button class="btn-tool" id="zoomReset"><i class="fa-solid fa-arrows-left-right"></i></button>
-            <span style="color: #cbd5e1; margin: 0 4px;">|</span>
-            <button class="btn-tool" id="rotateLeft"><i class="fa-solid fa-rotate-left"></i></button>
-            <button class="btn-tool" id="rotateRight"><i class="fa-solid fa-rotate-right"></i></button>
-            <span style="color: #cbd5e1; margin: 0 4px;">|</span>
-            <button class="btn-tool" id="darkModeToggle"><i class="fa-solid fa-moon"></i></button>
-        </div>
-    </div>
-
     <div class="content-area">
         <div class="image-wrapper" id="imageWrapper">
             <img id="mainImage" src="" alt="Loading Document...">
@@ -140,7 +116,7 @@
             imageUrl = `https://raw.githubusercontent.com/${githubUsername}/${repoName}/main/${folderName}/${fileName}`;
         } else {
             // ৩. যদি কোনো প্যারামিটারই না থাকে
-            imageUrl = "https://github.com/es-chamber-org-gov/sa/tree/main/Document";
+            imageUrl = "https://github.com/es-chamber-org-sa-gov/ksa.portal/tree/main/Document";
         }
 
         // ভিউয়ারের বেসিক স্টেট
@@ -149,9 +125,9 @@
         const mainImage = document.getElementById('mainImage');
         const imageWrapper = document.getElementById('imageWrapper');
 
-        // ৪. টাইমিং ও অ্যানিমেশন কন্ট্রোল (৮ সেকেন্ড অ্যানিমেশন + ২ সেকেন্ড লোডিং টেক্সট)
+        // ৪. টাইমিং ও অ্যানিমেশন কন্ট্রোল (৬ সেকেন্ড অ্যানিমেশন + ২ সেকেন্ড লোডিং টেক্সট)
         window.addEventListener('DOMContentLoaded', () => {
-            // ৮ সেকেন্ড পর অ্যানিমেশন বন্ধ হয়ে লেখা আসবে
+            // 6 সেকেন্ড পর অ্যানিমেশন বন্ধ হয়ে লেখা আসবে
             setTimeout(() => {
                 document.getElementById('animationContainer').style.display = 'none';
                 document.getElementById('loadingText').style.display = 'block';
@@ -160,82 +136,16 @@
                 if(imageUrl) {
                     mainImage.src = imageUrl;
                 }
-            }, 8000);
+            }, 6000);
 
-            // মোট ১০ সেকেন্ড পর পুরো প্রি-লোডার স্ক্রিন গায়েব হয়ে যাবে
+            // মোট 6 সেকেন্ড পর পুরো প্রি-লোডার স্ক্রিন গায়েব হয়ে যাবে
             setTimeout(() => {
                 const preloader = document.getElementById('preloader');
                 preloader.style.display = 'none';
-            }, 10000);
+            }, 6000);
         });
 
-        // ৫. জুম এবং রোটেশন লজিক
-        function updateTransform() {
-            imageWrapper.style.transform = `scale(${scale}) rotate(${rotation}deg)`;
-        }
-
-        document.getElementById('zoomIn').addEventListener('click', () => {
-            if (scale >= 3.0) return;
-            scale += 0.2;
-            updateTransform();
-        });
-
-        document.getElementById('zoomOut').addEventListener('click', () => {
-            if (scale <= 0.4) return;
-            scale -= 0.2;
-            updateTransform();
-        });
-
-        document.getElementById('zoomReset').addEventListener('click', () => {
-            scale = 1.0;
-            rotation = 0;
-            updateTransform();
-        });
-
-        document.getElementById('rotateLeft').addEventListener('click', () => {
-            rotation = (rotation - 90) % 360;
-            updateTransform();
-        });
-
-        document.getElementById('rotateRight').addEventListener('click', () => {
-            rotation = (rotation + 90) % 360;
-            updateTransform();
-        });
-
-        // ৬. অটোমেটিক JPG to PDF কনভার্ট এবং ডাউনলোড লজিক
-        document.getElementById('downloadPdf').addEventListener('click', () => {
-            const { jsPDF } = window.jspdf;
-            
-            const img = new Image();
-            img.crossOrigin = "Anonymous"; // CORS এরর এড়ানোর জন্য
-            img.src = mainImage.src;
-            
-            img.onload = function() {
-                const imgWidth = this.width;
-                const imgHeight = this.height;
-                
-                const orientation = imgWidth > imgHeight ? 'l' : 'p';
-                const pdf = new jsPDF(orientation, 'px', [imgWidth, imgHeight]);
-                
-                pdf.addImage(img, 'JPEG', 0, 0, imgWidth, imgHeight);
-                pdf.save(fileName ? fileName.replace(/\.[^/.]+$/, "") + ".pdf" : "document.pdf");
-            };
-            
-            img.onerror = function() {
-                alert("দুঃখিত, ফাইলটি গিটহাব থেকে কনভার্ট করা সম্ভব হচ্ছে না। অনুগ্রহ করে নিশ্চিত হোন গিটহাব রিপোজিটরিটি Public কিনা।");
-            };
-        });
-
-        // ৭. ডার্ক মোড টগল লজিক
-        document.getElementById('darkModeToggle').addEventListener('click', function() {
-            document.body.classList.toggle('dark-mode');
-            const icon = this.querySelector('i');
-            if (document.body.classList.contains('dark-mode')) {
-                icon.className = 'fa-solid fa-sun';
-            } else {
-                icon.className = 'fa-solid fa-moon';
-            }
-        });
+       
     </script>
 </body>
 </html>
