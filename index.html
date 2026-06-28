@@ -39,13 +39,13 @@
         /* কন্টেন্ট এরিয়া এবং ইমেজ কন্টেইনার */
         .content-area {
             margin: 5px;
-            padding: 35px;
+            padding: 45px;
             display: flex;
             justify-content: center;
             overflow: auto;
         }
         .image-wrapper {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 7px rgba(0,0,0,0.1);
             background-color: white;
             border-radius: 4px;
             display: inline-block;
@@ -125,9 +125,9 @@
         const mainImage = document.getElementById('mainImage');
         const imageWrapper = document.getElementById('imageWrapper');
 
-        // ৪. টাইমিং ও অ্যানিমেশন কন্ট্রোল (3 সেকেন্ড অ্যানিমেশন + 1 সেকেন্ড লোডিং টেক্সট)
+        // ৪. টাইমিং ও অ্যানিমেশন কন্ট্রোল (2 সেকেন্ড অ্যানিমেশন )
         window.addEventListener('DOMContentLoaded', () => {
-            // 3 সেকেন্ড পর অ্যানিমেশন বন্ধ হয়ে লেখা আসবে
+            // 2 সেকেন্ড পর অ্যানিমেশন বন্ধ হয়ে লেখা আসবে
             setTimeout(() => {
                 document.getElementById('animationContainer').style.display = 'none';
                 document.getElementById('loadingText').style.display = 'block';
@@ -136,13 +136,13 @@
                 if(imageUrl) {
                     mainImage.src = imageUrl;
                 }
-            }, 3000);
+            }, 2000);
 
             // মোট 5 সেকেন্ড পর পুরো প্রি-লোডার স্ক্রিন গায়েব হয়ে যাবে
             setTimeout(() => {
                 const preloader = document.getElementById('preloader');
                 preloader.style.display = 'none';
-            }, 4000);
+            }, 2000);
         });
 
        
