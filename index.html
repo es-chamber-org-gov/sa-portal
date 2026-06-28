@@ -37,22 +37,30 @@
         .btn-tool:hover { background-color: #f8fafc; border-color: #94a3b8; }
         
         /* কন্টেন্ট এরিয়া এবং ইমেজ কন্টেইনার */
-        .content-area {
-            margin: 5px;
-            padding: 65px;
-            display: block;
-            justify-content: center;
-            overflow: auto;
-        }
-        .image-wrapper {
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            background-color: white;
-            border-radius: 4px;
-            display: block;
-            transition: transform 0.3s ease, filter 0.3s ease;
-        }
-        #mainImage {    max-width: 100%;    height: 100%;    display: block;}
+.content-area {
+    margin: 0;
+    padding: 10px; /* মোবাইলের জন্য প্যাডিং কমানো হলো */
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box; /* সাইজিং ঠিক রাখার জন্য */
+    overflow: hidden;
+}
 
+.image-wrapper {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    background-color: white;
+    border-radius: 4px;
+    display: inline-block;
+    max-width: 100%; /* মোবাইলে যাতে স্ক্রিনের বাইরে না যায় */
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+#mainImage {
+    max-width: 100%; /* ইমেজ যেন কন্টেইনারের বাইরে না যায় */
+    height: auto;    /* ইমেজের অনুপাত ঠিক রাখার জন্য[cite: 1] */
+    display: block;
+}
         /* ডার্ক মোড স্টাইল */
         body.dark-mode { background-color: #0f172a !important; }
         body.dark-mode .toolbar-container { background-color: #1e293b; border-bottom-color: #334155; }
