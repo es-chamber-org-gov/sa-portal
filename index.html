@@ -39,7 +39,7 @@
         /* কন্টেন্ট এরিয়া এবং ইমেজ কন্টেইনার */
         .content-area {
             margin: 5px;
-            padding: 5px;
+            padding: 35px;
             display: flex;
             justify-content: center;
             overflow: auto;
@@ -73,7 +73,7 @@
             <div class="ripple"></div>
             <img class="preloader-logo" src="asharqia chamber.png" alt="Logo">
         </div>
-        <div id="loadingText"><i class="fa-solid fa-spinner fa-spin"></i> Please wait loading...</div>
+        <div id="loadingText"><i class="fa-solid fa-spinner fa-spin"></i> </div>
     </div>
 
     <div class="content-area">
@@ -125,9 +125,9 @@
         const mainImage = document.getElementById('mainImage');
         const imageWrapper = document.getElementById('imageWrapper');
 
-        // ৪. টাইমিং ও অ্যানিমেশন কন্ট্রোল (৬ সেকেন্ড অ্যানিমেশন + ২ সেকেন্ড লোডিং টেক্সট)
+        // ৪. টাইমিং ও অ্যানিমেশন কন্ট্রোল (3 সেকেন্ড অ্যানিমেশন + 1 সেকেন্ড লোডিং টেক্সট)
         window.addEventListener('DOMContentLoaded', () => {
-            // 6 সেকেন্ড পর অ্যানিমেশন বন্ধ হয়ে লেখা আসবে
+            // 3 সেকেন্ড পর অ্যানিমেশন বন্ধ হয়ে লেখা আসবে
             setTimeout(() => {
                 document.getElementById('animationContainer').style.display = 'none';
                 document.getElementById('loadingText').style.display = 'block';
@@ -136,13 +136,13 @@
                 if(imageUrl) {
                     mainImage.src = imageUrl;
                 }
-            }, 6000);
+            }, 3000);
 
-            // মোট 6 সেকেন্ড পর পুরো প্রি-লোডার স্ক্রিন গায়েব হয়ে যাবে
+            // মোট 5 সেকেন্ড পর পুরো প্রি-লোডার স্ক্রিন গায়েব হয়ে যাবে
             setTimeout(() => {
                 const preloader = document.getElementById('preloader');
                 preloader.style.display = 'none';
-            }, 6000);
+            }, 4000);
         });
 
        
